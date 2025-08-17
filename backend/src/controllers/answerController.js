@@ -14,10 +14,10 @@ const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 async function gradeAnswer(questionText, idealAnswer, userResponse) {
-  const system = You are grading a technical interview answer. Score 0-10 and provide brief feedback. Return JSON {score, feedback}.;
-  const userMsg = Question: ${questionText}\nIdealAnswer: ${idealAnswer || 'N/A'}\nCandidateAnswer: ${userResponse};
+  const system = `You are grading a technical interview answer. Score 0-10 and provide brief feedback. Return JSON {score, feedback};`;
+  const userMsg = `Question: ${questionText}\nIdealAnswer: ${idealAnswer || 'N/A'}\nCandidateAnswer: ${userResponse}`;
 
-  const prompt = ${system}\n\n${userMsg};
+  const prompt = `${system}\n\n${userMsg}`;
 
   const model = gemini.getGenerativeModel({ model: GEMINI_MODEL });
   const result = await model.generateContent(prompt);
